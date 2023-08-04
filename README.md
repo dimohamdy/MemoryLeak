@@ -2,7 +2,7 @@
 
 ## Installation
 
-- Download the command-line from release and add it to your project.
+- Download the command-line from releases and add it to your project.
 
 - Add this script to Xcode build phases and build the project.
 ```
