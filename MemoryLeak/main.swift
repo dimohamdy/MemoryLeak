@@ -4,6 +4,11 @@
 //
 
 import Foundation
+import SwiftLeakCheck
+
+func xcodeWarning(path: String, leak: Leak) -> String {
+    return "\(path):\(leak.line):\(leak.column): warning: `self` is strongly captured"
+}
 
 enum CommandLineError: Error, LocalizedError {
   case missingFileName
@@ -37,12 +42,10 @@ do {
         DispatchQueueRule()
         ] + CollectionRules.rules
       
-      let startDate = Date()
       let leaks = try leakDetector.detect(fileUrl)
-      let endDate = Date()
-            
+
       leaks.forEach { leak in
-          print(leak.xcodeWarning(path: fileUrl.path))
+          print(xcodeWarning(path: fileUrl.path, leak: leak))
       }
     } catch {}
   })
@@ -52,4 +55,5 @@ do {
 } catch {
   print("\(error.localizedDescription)")
 }
+
 

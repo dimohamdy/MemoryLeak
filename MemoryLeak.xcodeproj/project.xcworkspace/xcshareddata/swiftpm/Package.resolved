@@ -1,12 +1,21 @@
 {
   "pins" : [
     {
+      "identity" : "swift-leak-check",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/dimohamdy/swift-leak-check",
+      "state" : {
+        "branch" : "master",
+        "revision" : "88e4364b4cec6fd78afd2e212c7a510e83af9b90"
+      }
+    },
+    {
       "identity" : "swift-syntax",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/apple/swift-syntax.git",
+      "location" : "https://github.com/apple/swift-syntax",
       "state" : {
-        "revision" : "2c49d66d34dfd6f8130afdba889de77504b58ec0",
-        "version" : "508.0.1"
+        "revision" : "cd793adf5680e138bf2bcbaacc292490175d0dcd",
+        "version" : "508.0.0"
       }
     }
   ],
