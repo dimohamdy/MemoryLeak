@@ -5,6 +5,9 @@
 - Download the command-line from releases and add it to your project.
 
 - Add this script to Xcode build phases and build the project.
+
+- The script only checks the missing `[weak self]` or `[unowned self]` in the changed files.
+
 ```
 START_DATE=$(date +"%s")
 
