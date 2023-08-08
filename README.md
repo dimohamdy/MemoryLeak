@@ -3,39 +3,38 @@
 ## Installation
 
 - Download the command-line from releases and add it to your project.
-
+- Copy `checkleak` to `/usr/local/bin/` by
+```
+cp -f /Download/checkleak /usr/local/bin/
+```
 - Add this script to Xcode build phases and build the project.
 
 - The script only checks the missing `[weak self]` or `[unowned self]` in the changed files.
 
 ```
-START_DATE=$(date +"%s")
+#!/bin/bash
 
-# The path to LeakCheck
-LeakChecker="${SRCROOT}/../LeakCheck"
+checkleak="checkleak"
 
-# Run LeakChecker for the given filename
-run_leakChecker() {
-    local filename="${SRCROOT}/../${1}" # file path could be different
+# Run checkleak for given filename
+run_checkleak() {
+    local filename="${SRCROOT}/../${1}"
     if [[ "${filename##*.}" == "swift" ]]; then
         echo "⛔️ ${filename}"
-        ${LeakChecker} "${filename}"
+        ${checkleak} "${filename}"
     fi
 }
 
-# Check if LeakChecker is found
-if which "$LeakChecker" > /dev/null; then
+# Check if checkleak is found
+if which $checkleak > /dev/null; then
     # Run for both staged and unstaged files
-    git diff --name-only | while read filename; do run_leakChecker "${filename}"; done
-    git diff --cached --name-only | while read filename; do run_leakChecker "${filename}"; done
+    git diff --name-only | while read filename; do run_checkleak "${filename}"; done
+    git diff --cached --name-only | while read filename; do run_checkleak "${filename}"; done
 else
-    echo "${LeakChecker} is not found."
+    echo "${checkleak} is not found."
+        echo "${checkleak} is not found."
+        echo "Installation https://github.com/dimohamdy/MemoryLeak"
     exit 0
 fi
-
-END_DATE=$(date +"%s")
-
-DIFF=$(($END_DATE - $START_DATE))
-echo "LeakChecker took $(($DIFF / 60)) minutes and $(($DIFF % 60)) seconds to complete."
 
 ```
